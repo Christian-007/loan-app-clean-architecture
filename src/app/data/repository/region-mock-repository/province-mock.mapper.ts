@@ -1,19 +1,19 @@
 import { Mapper } from 'src/app/core/base/mapper';
+import { RegionModel } from 'src/app/core/domain/region.model';
 import { ProvinceMockEntity } from './region-mock.entity';
-import { ProvinceModel } from 'src/app/core/domain/region.model';
 
-export class RegionMockMapper extends Mapper<
+export class ProvinceMockMapper extends Mapper<
   ProvinceMockEntity,
-  ProvinceModel
+  RegionModel
 > {
-  mapFrom(param: ProvinceMockEntity): ProvinceModel {
+  mapFrom(param: ProvinceMockEntity): RegionModel {
     return {
       id: param.province_id,
       name: param.province,
     };
   }
 
-  mapTo(param: ProvinceModel): ProvinceMockEntity {
+  mapTo(param: RegionModel): ProvinceMockEntity {
     return {
       province_id: param.id,
       province: param.name,

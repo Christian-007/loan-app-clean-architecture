@@ -1,78 +1,90 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { filter, map, flatMap } from 'rxjs/operators';
+import { map, flatMap, find, tap } from 'rxjs/operators';
 
 import { Mapper } from 'src/app/core/base/mapper';
 import { RegionRepository } from 'src/app/core/repositories/region.repository';
-import { ProvinceModel } from 'src/app/core/domain/region.model';
-import { ProvinceMockEntity, ProvinceResult } from './region-mock.entity';
-import { RegionMockMapper } from './region-mock.mapper';
+import { RegionModel } from 'src/app/core/domain/region.model';
+import {
+  ProvinceMockEntity,
+  ProvinceResult,
+  CityResult,
+  CityMockEntity,
+} from './region-mock.entity';
+import { ProvinceMockMapper } from './province-mock.mapper';
+import { CityMockMapper } from './city-mock.mapper';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegionMockRepository extends RegionRepository {
-  private mapper: Mapper<ProvinceMockEntity, ProvinceModel>;
+  private provinceMapper: Mapper<ProvinceMockEntity, RegionModel>;
+  private cityMapper: Mapper<CityMockEntity, RegionModel>;
   private allProvincesRes: ProvinceResult;
+  private allCitiesByIdRes: CityResult;
 
   constructor() {
     super();
-    this.mapper = new RegionMockMapper();
+    this.provinceMapper = new ProvinceMockMapper();
+    this.cityMapper = new CityMockMapper();
     this.allProvincesRes = {
       message: 'OK',
       total: 34,
       result: [
-        { province_id: '1', province: 'ACEH' },
-        { province_id: '17', province: 'BALI' },
-        { province_id: '16', province: 'BANTEN' },
-        { province_id: '7', province: 'BENGKULU' },
-        { province_id: '14', province: 'DAISTA YOGYAKARTA' },
         { province_id: '11', province: 'DKI JAKARTA' },
-        { province_id: '28', province: 'GORONTALO' },
-        { province_id: '5', province: 'JAMBI' },
-        { province_id: '12', province: 'JAWA BARAT' },
-        { province_id: '13', province: 'JAWA TENGAH' },
-        { province_id: '15', province: 'JAWA TIMUR' },
-        { province_id: '20', province: 'KALIMANTAN BARAT' },
-        { province_id: '22', province: 'KALIMANTAN SELATAN' },
-        { province_id: '21', province: 'KALIMANTAN TENGAH' },
-        { province_id: '23', province: 'KALIMANTAN TIMUR' },
-        { province_id: '34', province: 'KALIMANTAN UTARA' },
-        { province_id: '9', province: 'KEP. BANGKA BELITUNG' },
-        { province_id: '10', province: 'KEPULAUAN RIAU' },
-        { province_id: '8', province: 'LAMPUNG' },
-        { province_id: '30', province: 'MALUKU' },
-        { province_id: '31', province: 'MALUKU UTARA' },
-        { province_id: '18', province: 'NUSA TENGGARA BARAT' },
-        { province_id: '19', province: 'NUSA TENGGARA TIMUR' },
-        { province_id: '32', province: 'PAPUA' },
-        { province_id: '33', province: 'PAPUA BARAT' },
-        { province_id: '4', province: 'RIAU' },
-        { province_id: '29', province: 'SULAWESI BARAT' },
-        { province_id: '26', province: 'SULAWESI SELATAN' },
-        { province_id: '25', province: 'SULAWESI TENGAH' },
-        { province_id: '27', province: 'SULAWESI TENGGARA' },
-        { province_id: '24', province: 'SULAWESI UTARA' },
-        { province_id: '3', province: 'SUMATERA BARAT' },
-        { province_id: '6', province: 'SUMATERA SELATAN' },
-        { province_id: '2', province: 'SUMATERA UTARA' },
+        { province_id: '17', province: 'BALI' },
       ],
+    };
+    this.allCitiesByIdRes = {
+      message: 'OK',
+      total: 6,
+      result: {
+        11: [
+          { city_id: '152', city: 'KAB. ADM. KEP. SERIBU' },
+          { city_id: '155', city: 'KOTA ADM. JAKARTA BARAT' },
+          { city_id: '153', city: 'KOTA ADM. JAKARTA PUSAT' },
+          { city_id: '156', city: 'KOTA ADM. JAKARTA SELATAN' },
+          { city_id: '157', city: 'KOTA ADM. JAKARTA TIMUR' },
+          { city_id: '154', city: 'KOTA ADM. JAKARTA UTARA' },
+        ],
+        17: [
+          { city_id: '272', city: 'KAB. BADUNG' },
+          { city_id: '275', city: 'KAB. BANGLI' },
+          { city_id: '277', city: 'KAB. BULELENG' },
+          { city_id: '273', city: 'KAB. GIANYAR' },
+          { city_id: '270', city: 'KAB. JEMBRANA' },
+          { city_id: '276', city: 'KAB. KARANGASEM' },
+          { city_id: '274', city: 'KAB. KLUNGKUNG' },
+          { city_id: '271', city: 'KAB. TABANAN' },
+          { city_id: '278', city: 'KOTA DENPASAR' },
+        ],
+      },
     };
   }
 
-  getProvinceById(id: string): Observable<ProvinceModel> {
+  getProvinceById(id: string): Observable<RegionModel> {
     return of(this.allProvincesRes).pipe(
       flatMap((res: ProvinceResult) => res.result),
-      filter((province: ProvinceMockEntity) => province.province_id === id),
-      map(this.mapper.mapFrom),
+      tap(data => console.log('data: ', data)),
+      find((province: ProvinceMockEntity) => province.province_id === id),
+      map(this.provinceMapper.mapFrom),
     );
   }
 
-  getAllProvinces(): Observable<ProvinceModel[]> {
+  getAllProvinces(): Observable<RegionModel[]> {
     return of(this.allProvincesRes).pipe(
       map((res: ProvinceResult) => res.result),
       map((provinces: ProvinceMockEntity[]) => {
-        return provinces.map(this.mapper.mapFrom);
+        return provinces.map(this.provinceMapper.mapFrom);
+      }),
+    );
+  }
+
+  getAllCitiesByProvinceId(id: string): Observable<RegionModel[]> {
+    return of(this.allCitiesByIdRes).pipe(
+      map((res: CityResult) => res.result[id]),
+      map((cities: CityMockEntity[]) => {
+        return cities.map(this.cityMapper.mapFrom);
       }),
     );
   }
