@@ -1,0 +1,16 @@
+.app-bar {
+  display: flex;
+  background-color: #212121;
+  padding: 1rem;
+
+  &__section {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
+
+  &__title {
+    font-weight: bold;
+    color: white;
+  }
+}

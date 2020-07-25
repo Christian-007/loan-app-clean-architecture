@@ -1,0 +1,49 @@
+<div class="container">
+  <form [formGroup]="loanForm" (ngSubmit)="onSubmit()">
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Full name</mat-label>
+        <input
+          [formControl]="loanForm.controls.fullName"
+          matInput
+          placeholder="Full name"
+        />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>ID no.</mat-label>
+        <input
+          [formControl]="loanForm.controls.id"
+          matInput
+          placeholder="ID no."
+        />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Email address</mat-label>
+        <input
+          [formControl]="loanForm.controls.email"
+          matInput
+          placeholder="Email address"
+        />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input
+          [formControl]="loanForm.controls.age"
+          matInput
+          placeholder="Age"
+        />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <button type="submit" mat-flat-button color="primary">Submit</button>
+  </form>
+</div>
