@@ -9,7 +9,7 @@ export class RegionMockMapper extends Mapper<
   mapFrom(param: ProvinceMockEntity): ProvinceModel {
     return {
       id: param.province_id,
-      name: param.province_id,
+      name: param.province,
     };
   }
 
