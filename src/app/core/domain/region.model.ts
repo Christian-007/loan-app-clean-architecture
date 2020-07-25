@@ -1,4 +1,4 @@
-export interface ProvinceModel {
+export interface RegionModel {
   name: string;
   id: string;
 }
