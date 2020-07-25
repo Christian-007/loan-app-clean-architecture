@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map, flatMap, find, tap } from 'rxjs/operators';
+import { map, flatMap, find } from 'rxjs/operators';
 
 import { Mapper } from 'src/app/core/base/mapper';
 import { RegionRepository } from 'src/app/core/repositories/region.repository';
@@ -65,7 +65,6 @@ export class RegionMockRepository extends RegionRepository {
   getProvinceById(id: string): Observable<RegionModel> {
     return of(this.allProvincesRes).pipe(
       flatMap((res: ProvinceResult) => res.result),
-      tap(data => console.log('data: ', data)),
       find((province: ProvinceMockEntity) => province.province_id === id),
       map(this.provinceMapper.mapFrom),
     );
