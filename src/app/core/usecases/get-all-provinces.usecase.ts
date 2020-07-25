@@ -8,10 +8,10 @@ import { RegionRepository } from '../repositories/region.repository';
 @Injectable({
   providedIn: 'root',
 })
-export class GetAllProvincesUsecase implements UseCase<void, ProvinceModel> {
+export class GetAllProvincesUsecase implements UseCase<void, ProvinceModel[]> {
   constructor(private regionRepository: RegionRepository) {}
 
-  execute(params: void): Observable<ProvinceModel> {
+  execute(params: void): Observable<ProvinceModel[]> {
     return this.regionRepository.getAllProvinces();
   }
 }
