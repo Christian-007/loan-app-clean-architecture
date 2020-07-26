@@ -53,12 +53,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onProvinceSelectChange(event: MatSelectChange): void {
-    const selectedProvinceId = event.value;
-
+  onProvinceSelectChange(selectedProvince: RegionModel): void {
     this.loading.city = true;
     this.getAllCitiesByProvinceId
-      .execute(selectedProvinceId)
+      .execute(selectedProvince.id)
       .subscribe((cities: RegionModel[]) => {
         console.log('getAllCitiesByProvinceId : ', cities);
         this.loading.city = false;
@@ -66,9 +64,8 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  onCitySelectChange(event: MatSelectChange): void {
-    const selectedCityId = event.value;
-    console.log('selectedCityId: ', selectedCityId);
+  onCitySelectChange(selectedCity: RegionModel): void {
+    console.log('selectedCityId: ', selectedCity);
   }
 
   onSubmit(): void {

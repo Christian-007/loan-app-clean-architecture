@@ -44,56 +44,22 @@
         <mat-hint>Hint</mat-hint>
       </mat-form-field>
     </p>
-    <p>
-      <mat-form-field>
-        <mat-label>Province</mat-label>
-        <mat-select
-          (selectionChange)="onProvinceSelectChange($event)"
-          [formControl]="loanForm.controls.province"
-          name="province"
-        >
-          <mat-option>Please select your province</mat-option>
-          <mat-option *ngFor="let province of provinces" [value]="province.id">
-            {{ province.name }}
-          </mat-option>
-        </mat-select>
-        <mat-hint align="start" *ngIf="this.loading.province">
-          <strong>Loading...</strong>
-        </mat-hint>
-        <mat-hint align="end" *ngIf="this.loading.province">
-          <mat-progress-spinner
-            color="primary"
-            mode="indeterminate"
-            diameter="20"
-          ></mat-progress-spinner>
-        </mat-hint>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field>
-        <mat-label>City</mat-label>
-        <mat-select
-          (selectionChange)="onCitySelectChange($event)"
-          [formControl]="loanForm.controls.city"
-          name="city"
-        >
-          <mat-option>Please select your city</mat-option>
-          <mat-option *ngFor="let city of cities" [value]="city.id">
-            {{ city.name }}
-          </mat-option>
-        </mat-select>
-        <mat-hint align="start" *ngIf="this.loading.city">
-          <strong>Loading...</strong>
-        </mat-hint>
-        <mat-hint align="end" *ngIf="this.loading.city">
-          <mat-progress-spinner
-            color="primary"
-            mode="indeterminate"
-            diameter="20"
-          ></mat-progress-spinner>
-        </mat-hint>
-      </mat-form-field>
-    </p>
+    <app-region-field
+      label="Province"
+      defaultOption="Please select your province"
+      [regionList]="provinces"
+      [loading]="loading.province"
+      [controlRef]="loanForm.controls.province"
+      (selectionChange)="onProvinceSelectChange($event)"
+    ></app-region-field>
+    <app-region-field
+      label="City"
+      defaultOption="Please select your city"
+      [regionList]="cities"
+      [loading]="loading.city"
+      [controlRef]="loanForm.controls.city"
+      (selectionChange)="onCitySelectChange($event)"
+    ></app-region-field>
     <button type="submit" mat-flat-button color="primary">Submit</button>
   </form>
 </div>
