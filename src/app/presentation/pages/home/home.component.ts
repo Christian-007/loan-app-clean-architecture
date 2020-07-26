@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { MatSelectChange } from '@angular/material/select';
 
 import { GetAllProvincesUsecase } from 'src/app/core/usecases/get-all-provinces.usecase';
 import { GetProvinceByIdUsecase } from 'src/app/core/usecases/get-province-by-id.usecase';
@@ -54,14 +53,17 @@ export class HomeComponent implements OnInit {
   }
 
   onProvinceSelectChange(selectedProvince: RegionModel): void {
-    this.loading.city = true;
-    this.getAllCitiesByProvinceId
-      .execute(selectedProvince.id)
-      .subscribe((cities: RegionModel[]) => {
-        console.log('getAllCitiesByProvinceId : ', cities);
-        this.loading.city = false;
-        this.cities = cities;
-      });
+    if (selectedProvince) {
+      this.loading.city = true;
+      this.getAllCitiesByProvinceId
+        .execute(selectedProvince.id)
+        .subscribe((cities: RegionModel[]) => {
+          console.log('getAllCitiesByProvinceId : ', cities);
+          this.loading.city = false;
+          this.cities = cities;
+        });
+    }
+    // Handle empty value here
   }
 
   onCitySelectChange(selectedCity: RegionModel): void {
