@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map, flatMap, find } from 'rxjs/operators';
+import { map, flatMap, find, delay } from 'rxjs/operators';
 
 import { Mapper } from 'src/app/core/base/mapper';
 import { RegionRepository } from 'src/app/core/repositories/region.repository';
@@ -22,11 +22,13 @@ export class RegionMockRepository extends RegionRepository {
   private cityMapper: Mapper<CityMockEntity, RegionModel>;
   private allProvincesRes: ProvinceResult;
   private allCitiesByIdRes: CityResult;
+  private mockLoadingTime: number;
 
   constructor() {
     super();
     this.provinceMapper = new ProvinceMockMapper();
     this.cityMapper = new CityMockMapper();
+    this.mockLoadingTime = 2000;
     this.allProvincesRes = {
       message: 'OK',
       total: 34,
@@ -67,6 +69,7 @@ export class RegionMockRepository extends RegionRepository {
       flatMap((res: ProvinceResult) => res.result),
       find((province: ProvinceMockEntity) => province.province_id === id),
       map(this.provinceMapper.mapFrom),
+      delay(this.mockLoadingTime),
     );
   }
 
@@ -76,6 +79,7 @@ export class RegionMockRepository extends RegionRepository {
       map((provinces: ProvinceMockEntity[]) => {
         return provinces.map(this.provinceMapper.mapFrom);
       }),
+      delay(this.mockLoadingTime),
     );
   }
 
@@ -85,6 +89,7 @@ export class RegionMockRepository extends RegionRepository {
       map((cities: CityMockEntity[]) => {
         return cities.map(this.cityMapper.mapFrom);
       }),
+      delay(this.mockLoadingTime),
     );
   }
 }
