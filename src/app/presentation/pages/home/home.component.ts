@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 
 import { GetAllProvincesUsecase } from 'src/app/core/usecases/get-all-provinces.usecase';
 import { GetProvinceByIdUsecase } from 'src/app/core/usecases/get-province-by-id.usecase';
@@ -14,6 +15,7 @@ import { GetAllCitiesByProvinceIdUsecase } from 'src/app/core/usecases/get-all-c
 export class HomeComponent implements OnInit {
   loanForm: FormGroup;
   provinces: RegionModel[];
+  cities: RegionModel[];
   loading: { [key: string]: boolean };
 
   constructor(
@@ -28,10 +30,13 @@ export class HomeComponent implements OnInit {
       email: [''],
       age: [''],
       province: [''],
+      city: [''],
     });
     this.provinces = [];
+    this.cities = [];
     this.loading = {
       province: false,
+      city: false,
     };
   }
 
@@ -46,12 +51,24 @@ export class HomeComponent implements OnInit {
     this.getProvinceById.execute('11').subscribe((province: RegionModel) => {
       console.log('getProvinceById: ', province);
     });
+  }
 
+  onProvinceSelectChange(event: MatSelectChange): void {
+    const selectedProvinceId = event.value;
+
+    this.loading.city = true;
     this.getAllCitiesByProvinceId
-      .execute('11')
+      .execute(selectedProvinceId)
       .subscribe((cities: RegionModel[]) => {
         console.log('getAllCitiesByProvinceId : ', cities);
+        this.loading.city = false;
+        this.cities = cities;
       });
+  }
+
+  onCitySelectChange(event: MatSelectChange): void {
+    const selectedCityId = event.value;
+    console.log('selectedCityId: ', selectedCityId);
   }
 
   onSubmit(): void {
