@@ -14,6 +14,7 @@ import { GetAllCitiesByProvinceIdUsecase } from 'src/app/core/usecases/get-all-c
 export class HomeComponent implements OnInit {
   loanForm: FormGroup;
   provinces: RegionModel[];
+  loading: { [key: string]: boolean };
 
   constructor(
     private fb: FormBuilder,
@@ -29,11 +30,16 @@ export class HomeComponent implements OnInit {
       province: [''],
     });
     this.provinces = [];
+    this.loading = {
+      province: false,
+    };
   }
 
   ngOnInit(): void {
+    this.loading.province = true;
     this.getAllProvinces.execute().subscribe((provinces: RegionModel[]) => {
       console.log('getAllProvinces: ', provinces);
+      this.loading.province = false;
       this.provinces = provinces;
     });
 
