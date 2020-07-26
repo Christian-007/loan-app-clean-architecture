@@ -10,6 +10,8 @@ import { DataModule } from './data/data.module';
 import { AppComponent } from './app.component';
 import { NavbarModule } from './presentation/shared/components/navbar/navbar.module';
 import { routes } from './router';
+import { LoanRepository } from './core/repositories/loan.repository';
+import { LoanMockRepository } from './data/repository/loan-mock-repository/loan-mock.repository';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +23,10 @@ import { routes } from './router';
     NavbarModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [{ provide: RegionRepository, useClass: RegionMockRepository }],
+  providers: [
+    { provide: RegionRepository, useClass: RegionMockRepository },
+    { provide: LoanRepository, useClass: LoanMockRepository },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

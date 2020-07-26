@@ -70,6 +70,9 @@
       [controlRef]="loanForm.controls.city"
       (selectionChange)="onCitySelectChange($event)"
     ></app-region-field>
-    <button type="submit" mat-flat-button color="primary">Submit</button>
+    <button type="submit" mat-flat-button color="primary">
+      <span *ngIf="!loading.submitForm">Submit</span>
+      <span *ngIf="loading.submitForm">Submitting...</span>
+    </button>
   </form>
 </div>

@@ -3,8 +3,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { GetAllProvincesUsecase } from 'src/app/core/usecases/get-all-provinces.usecase';
 import { GetProvinceByIdUsecase } from 'src/app/core/usecases/get-province-by-id.usecase';
+import { SubmitLoanUsecase } from 'src/app/core/usecases/submit-loan.usecase';
 import { RegionModel } from 'src/app/core/domain/region.model';
 import { GetAllCitiesByProvinceIdUsecase } from 'src/app/core/usecases/get-all-cities-by-province-id.usecase';
+import { LoanModel } from 'src/app/core/domain/loan.model';
+import { MockSuccessResponse } from 'src/app/data/repository/loan-mock-repository/loan-mock.entity';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +25,7 @@ export class HomeComponent implements OnInit {
     private getAllProvinces: GetAllProvincesUsecase,
     private getProvinceById: GetProvinceByIdUsecase,
     private getAllCitiesByProvinceId: GetAllCitiesByProvinceIdUsecase,
+    private submitLoan: SubmitLoanUsecase,
   ) {
     this.loanForm = this.fb.group({
       fullName: [''],
@@ -37,13 +41,13 @@ export class HomeComponent implements OnInit {
     this.loading = {
       province: false,
       city: false,
+      submitForm: false,
     };
   }
 
   ngOnInit(): void {
     this.loading.province = true;
     this.getAllProvinces.execute().subscribe((provinces: RegionModel[]) => {
-      console.log('getAllProvinces: ', provinces);
       this.loading.province = false;
       this.provinces = provinces;
     });
@@ -59,7 +63,6 @@ export class HomeComponent implements OnInit {
       this.getAllCitiesByProvinceId
         .execute(selectedProvince.id)
         .subscribe((cities: RegionModel[]) => {
-          console.log('getAllCitiesByProvinceId : ', cities);
           this.loading.city = false;
           this.cities = cities;
         });
@@ -72,6 +75,12 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('values: ', this.loanForm.value);
+    const formData: LoanModel = this.loanForm.value;
+
+    this.loading.submitForm = true;
+    this.submitLoan.execute(formData).subscribe((res: MockSuccessResponse) => {
+      this.loading.submitForm = false;
+      console.log('success: ', res);
+    });
   }
 }
