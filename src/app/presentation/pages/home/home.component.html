@@ -44,6 +44,15 @@
         <mat-hint>Hint</mat-hint>
       </mat-form-field>
     </p>
+    <mat-form-field>
+      <mat-label>Province</mat-label>
+      <mat-select [formControl]="loanForm.controls.province" name="food">
+        <mat-option>Please select your province</mat-option>
+        <mat-option *ngFor="let province of provinces" [value]="province.id">
+          {{ province.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <button type="submit" mat-flat-button color="primary">Submit</button>
   </form>
 </div>
