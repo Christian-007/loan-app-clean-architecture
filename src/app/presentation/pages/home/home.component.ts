@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
       id: [''],
       email: [''],
       age: [''],
+      address: [''],
       province: [''],
       city: [''],
     });

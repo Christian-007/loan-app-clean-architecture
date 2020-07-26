@@ -44,6 +44,15 @@
         <mat-hint>Hint</mat-hint>
       </mat-form-field>
     </p>
+    <p>
+      <mat-form-field>
+        <textarea
+          [formControl]="loanForm.controls.address"
+          matInput
+          placeholder="Address"
+        ></textarea>
+      </mat-form-field>
+    </p>
     <app-region-field
       label="Province"
       defaultOption="Please select your province"
