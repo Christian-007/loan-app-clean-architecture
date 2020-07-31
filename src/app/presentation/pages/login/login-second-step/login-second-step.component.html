@@ -1,0 +1,17 @@
+<form [formGroup]="loginForm" (ngSubmit)="onNext()">
+  <p>
+    <mat-form-field class="fullWidth" appearance="outline">
+      <mat-label>ID no.</mat-label>
+      <input
+        [formControl]="loginForm.controls.id"
+        matInput
+        type="tel"
+        placeholder="ID no."
+      />
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </p>
+  <button type="submit" mat-flat-button color="primary">
+    Next
+  </button>
+</form>

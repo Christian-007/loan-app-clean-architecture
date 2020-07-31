@@ -1,0 +1,17 @@
+<form [formGroup]="loginForm" (ngSubmit)="onNext()">
+  <p>
+    <mat-form-field class="fullWidth" appearance="outline">
+      <mat-label>OTP</mat-label>
+      <input
+        [formControl]="loginForm.controls.otp"
+        matInput
+        type="tel"
+        placeholder="OTP"
+      />
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </p>
+  <button type="submit" mat-flat-button color="primary">
+    Submit
+  </button>
+</form>
