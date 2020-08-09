@@ -8,7 +8,7 @@ import { Mapper } from 'src/app/core/base/mapper';
 import { AuthMockResponse, AuthMockEntity } from './auth-mock.entity';
 import { AuthMockMapper } from './auth-mock.mapper';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class AuthMockRepository extends AuthRepository {
   private authMapper: Mapper<AuthMockEntity, AuthModel>;
   private fakeBodyRequest: AuthMockEntity;

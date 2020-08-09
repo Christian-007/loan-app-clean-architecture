@@ -7,7 +7,7 @@ import { AuthRepository } from '../repositories/auth.repository';
 
 import { AuthMockResponse } from 'src/app/data/repository/auth-mock-repository/auth-mock.entity';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class AuthenticateUsecase
   implements UseCase<AuthModel, AuthMockResponse<any>> {
   constructor(private authRepository: AuthRepository) {}
