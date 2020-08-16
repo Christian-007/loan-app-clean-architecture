@@ -1,16 +1,24 @@
-import { plainToClass } from 'class-transformer';
-
 import { Mapper } from 'src/app/core/base/mapper';
 import { AuthModel } from 'src/app/core/domain/auth.model';
 import { AuthMockEntity } from './auth-mock.entity';
-import { AuthModelTransformer } from './transformers/auth-model.trasnformer';
-import { AuthMockEntityTransformer } from './transformers/auth-mock-entity.transformer';
 
-export class AuthMockMapper extends Mapper<AuthMockEntity, AuthModel> {
-  mapFrom(param: AuthMockEntity): AuthModel {
-    return plainToClass(AuthModelTransformer, param);
+export class AuthMockMapper extends Mapper<
+  Partial<AuthMockEntity>,
+  Partial<AuthModel>
+> {
+  mapFrom(param: Partial<AuthMockEntity>): Partial<AuthModel> {
+    return {
+      ...(param.phone && { phoneNumber: param.phone }),
+      ...(param.identifier && { id: param.identifier }),
+      ...(param.otp && { otp: param.otp }),
+    };
   }
-  mapTo(param: AuthModel): AuthMockEntity {
-    return plainToClass(AuthMockEntityTransformer, param);
+
+  mapTo(param: Partial<AuthModel>): Partial<AuthMockEntity> {
+    return {
+      ...(param.phoneNumber && { phone: param.phoneNumber }),
+      ...(param.id && { identifier: param.id }),
+      ...(param.otp && { otp: param.otp }),
+    };
   }
 }

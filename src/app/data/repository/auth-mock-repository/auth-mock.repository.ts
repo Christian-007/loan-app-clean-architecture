@@ -10,8 +10,8 @@ import { AuthMockMapper } from './auth-mock.mapper';
 
 @Injectable()
 export class AuthMockRepository extends AuthRepository {
-  private authMapper: Mapper<AuthMockEntity, AuthModel>;
-  private fakeBodyRequest: AuthMockEntity;
+  private authMapper: Mapper<Partial<AuthMockEntity>, Partial<AuthModel>>;
+  private fakeBodyRequest: Partial<AuthMockEntity>;
   private mockAuthRes: AuthMockResponse<null>;
 
   constructor() {
@@ -24,7 +24,9 @@ export class AuthMockRepository extends AuthRepository {
     };
   }
 
-  authenticate(loginData: AuthModel): Observable<AuthMockResponse<any>> {
+  authenticate(
+    loginData: Partial<AuthModel>,
+  ): Observable<AuthMockResponse<any>> {
     const mappedLoginData = this.authMapper.mapTo(loginData);
     this.fakeBodyRequest = mappedLoginData;
     console.log('body request mapped: ', this.fakeBodyRequest);

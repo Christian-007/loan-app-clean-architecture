@@ -9,10 +9,10 @@ import { AuthMockResponse } from 'src/app/data/repository/auth-mock-repository/a
 
 @Injectable()
 export class AuthenticateUsecase
-  implements UseCase<AuthModel, AuthMockResponse<any>> {
+  implements UseCase<Partial<AuthModel>, AuthMockResponse<any>> {
   constructor(private authRepository: AuthRepository) {}
 
-  execute(params: AuthModel): Observable<AuthMockResponse<any>> {
+  execute(params: Partial<AuthModel>): Observable<AuthMockResponse<any>> {
     return this.authRepository.authenticate(params);
   }
 }

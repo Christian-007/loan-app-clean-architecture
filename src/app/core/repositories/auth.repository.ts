@@ -5,6 +5,6 @@ import { AuthModel } from '../domain/auth.model';
 
 export abstract class AuthRepository {
   abstract authenticate(
-    loginData: AuthModel,
+    loginData: Partial<AuthModel>,
   ): Observable<AuthMockResponse<any>>;
 }
