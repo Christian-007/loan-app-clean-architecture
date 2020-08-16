@@ -1,0 +1,16 @@
+<button type="submit" mat-flat-button [disabled]="isLoading" color="primary">
+  <ng-container *ngIf="isLoading; else normalState">
+    <mat-icon>
+      <mat-progress-spinner
+        mode="indeterminate"
+        diameter="20"
+        class="mat-spinner-color"
+      ></mat-progress-spinner>
+    </mat-icon>
+    {{ loadingText }}
+  </ng-container>
+
+  <ng-template #normalState>
+    {{ text }}
+  </ng-template>
+</button>
