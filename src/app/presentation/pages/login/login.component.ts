@@ -21,19 +21,26 @@ export class LoginComponent {
   }
 
   onFirstStepNext(phoneNumber: string): void {
-    this.step++;
     this.loginForm = { ...this.loginForm, phoneNumber };
+
+    this.authenticateUsecase
+      .execute(this.loginForm)
+      .subscribe(() => this.step++);
   }
 
   onSecondStepNext(id: string): void {
-    this.step++;
     this.loginForm = { ...this.loginForm, id };
+
+    this.authenticateUsecase
+      .execute(this.loginForm)
+      .subscribe(() => this.step++);
   }
 
   onThirdStepNext(otp: string): void {
     this.loginForm = { ...this.loginForm, otp };
-    this.authenticateUsecase.execute(this.loginForm);
 
-    console.log('loginForm: ', this.loginForm);
+    this.authenticateUsecase
+      .execute(this.loginForm)
+      .subscribe(() => console.log('Authenticated!'));
   }
 }
