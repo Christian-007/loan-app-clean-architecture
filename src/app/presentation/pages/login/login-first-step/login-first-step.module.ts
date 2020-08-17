@@ -7,6 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 import { LoginFirstStepComponent } from './login-first-step.component';
+import { LoadingButtonModule } from 'src/app/presentation/shared/components/loading-button/loading-button.module';
+
+import { AuthenticateUsecase } from 'src/app/core/usecases/authenticate.usecase';
 
 @NgModule({
   declarations: [LoginFirstStepComponent],
@@ -16,7 +19,9 @@ import { LoginFirstStepComponent } from './login-first-step.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    LoadingButtonModule,
   ],
+  providers: [AuthenticateUsecase],
   exports: [LoginFirstStepComponent],
 })
 export class LoginFirstStepModule {}

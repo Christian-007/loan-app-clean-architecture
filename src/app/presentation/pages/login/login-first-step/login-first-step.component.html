@@ -11,7 +11,6 @@
       <mat-hint>Hint</mat-hint>
     </mat-form-field>
   </p>
-  <button type="submit" mat-flat-button color="primary">
-    Next
-  </button>
+
+  <app-loading-button text="Next" [isLoading]="isLoading"></app-loading-button>
 </form>

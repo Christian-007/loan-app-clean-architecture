@@ -1,23 +1,37 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { AuthenticateUsecase } from 'src/app/core/usecases/authenticate.usecase';
+import { AuthModel } from 'src/app/core/domain/auth.model';
+
 @Component({
   selector: 'app-login-first-step',
   templateUrl: './login-first-step.component.html',
 })
 export class LoginFirstStepComponent {
-  loginForm: FormGroup;
   @Output() clickNext: EventEmitter<string>;
 
-  constructor(private fb: FormBuilder) {
+  loginForm: FormGroup;
+  isLoading: boolean;
+
+  constructor(
+    private fb: FormBuilder,
+    private authenticateUseCase: AuthenticateUsecase,
+  ) {
+    this.clickNext = new EventEmitter();
     this.loginForm = this.fb.group({
       phoneNumber: [''],
     });
-    this.clickNext = new EventEmitter();
+    this.isLoading = false;
   }
 
   onNext(): void {
-    const { phoneNumber } = this.loginForm.value;
-    this.clickNext.emit(phoneNumber);
+    const loginFormData = this.loginForm.value as Partial<AuthModel>;
+
+    this.isLoading = true;
+    this.authenticateUseCase.execute(loginFormData).subscribe(() => {
+      this.isLoading = false;
+      this.clickNext.emit();
+    });
   }
 }

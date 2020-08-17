@@ -1,23 +1,37 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { AuthModel } from 'src/app/core/domain/auth.model';
+import { AuthenticateUsecase } from 'src/app/core/usecases/authenticate.usecase';
+
 @Component({
   selector: 'app-login-third-step',
   templateUrl: './login-third-step.component.html',
 })
 export class LoginThirdStepComponent {
-  loginForm: FormGroup;
   @Output() clickNext: EventEmitter<string>;
 
-  constructor(private fb: FormBuilder) {
+  loginForm: FormGroup;
+  isLoading: boolean;
+
+  constructor(
+    private fb: FormBuilder,
+    private authenticateUsecase: AuthenticateUsecase,
+  ) {
+    this.clickNext = new EventEmitter();
     this.loginForm = this.fb.group({
       otp: [''],
     });
-    this.clickNext = new EventEmitter();
+    this.isLoading = false;
   }
 
   onNext(): void {
-    const { otp } = this.loginForm.value;
-    this.clickNext.emit(otp);
+    const loginFormData = this.loginForm.value as Partial<AuthModel>;
+
+    this.isLoading = true;
+    this.authenticateUsecase.execute(loginFormData).subscribe(() => {
+      this.isLoading = false;
+      this.clickNext.emit();
+    });
   }
 }

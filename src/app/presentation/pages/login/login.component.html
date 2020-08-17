@@ -1,14 +1,14 @@
 <div class="container">
   <app-login-first-step
     *ngIf="step === 1"
-    (clickNext)="onFirstStepNext($event)"
+    (clickNext)="onFirstStepNext()"
   ></app-login-first-step>
   <app-login-second-step
     *ngIf="step === 2"
-    (clickNext)="onSecondStepNext($event)"
+    (clickNext)="onSecondStepNext()"
   ></app-login-second-step>
   <app-login-third-step
     *ngIf="step === 3"
-    (clickNext)="onThirdStepNext($event)"
+    (clickNext)="onThirdStepNext()"
   ></app-login-third-step>
 </div>
