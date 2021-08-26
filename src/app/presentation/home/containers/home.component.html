@@ -1,0 +1,79 @@
+<div class="container">
+  <form [formGroup]="homeState.loanForm" (ngSubmit)="onSubmit()">
+    <p>
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Full name</mat-label>
+        <input
+          [formControl]="homeState.loanForm.controls.fullName"
+          matInput
+          placeholder="Full name"
+        />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>ID no.</mat-label>
+        <input
+          [formControl]="homeState.loanForm.controls.id"
+          matInput
+          placeholder="ID no."
+        />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Email address</mat-label>
+        <input
+          [formControl]="homeState.loanForm.controls.email"
+          matInput
+          placeholder="Email address"
+        />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Age</mat-label>
+        <input
+          [formControl]="homeState.loanForm.controls.age"
+          matInput
+          placeholder="Age"
+        />
+        <mat-hint>Hint</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="fullWidth" appearance="outline">
+        <mat-label>Street</mat-label>
+        <textarea
+          [formControl]="homeState.loanForm.controls.street"
+          matInput
+          placeholder="Street"
+        ></textarea>
+      </mat-form-field>
+    </p>
+    <app-region-field
+      label="Province"
+      defaultOption="Please select your province"
+      [regionList]="homeState.provinces"
+      [loading]="homeState.loading.provinces"
+      [controlRef]="homeState.loanForm.controls.province"
+      (selectionChange)="onProvinceSelectChange($event)"
+    ></app-region-field>
+    <!-- <app-region-field
+      label="City"
+      defaultOption="Please select your city"
+      [regionList]="cities"
+      [loading]="loading.city"
+      [controlRef]="loanForm.controls.city"
+      (selectionChange)="onCitySelectChange($event)"
+    ></app-region-field> -->
+    <button type="submit" mat-flat-button color="primary">
+      <!-- <span *ngIf="!loading.submitForm">Submit</span>
+      <span *ngIf="loading.submitForm">Submitting...</span> -->
+      <span>Submit</span>
+    </button>
+  </form>
+</div>

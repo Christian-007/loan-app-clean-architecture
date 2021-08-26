@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
-import { RegionModel } from '../domain/region.model';
+import { RegionEntity } from '../entities/region.entity';
 
 export abstract class RegionRepository {
-  abstract getProvinceById(id: string): Observable<RegionModel>;
-  abstract getAllProvinces(): Observable<RegionModel[]>;
-  abstract getAllCitiesByProvinceId(id: string): Observable<RegionModel[]>;
+  abstract getProvinceById(id: string): Observable<RegionEntity>;
+  abstract getAllProvinces(): Observable<RegionEntity[]>;
+  abstract getAllCitiesByProvinceId(id: string): Observable<RegionEntity[]>;
 }

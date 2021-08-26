@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
 
-import { LoanModel } from '../domain/loan.model';
-import { MockSuccessResponse } from 'src/app/data/repository/loan-mock-repository/loan-mock.entity';
+import { LoanEntity } from '../entities/loan.entity';
+import { MockSuccessResponse } from 'src/app/data/loan/loan-mock.dto';
 
 export abstract class LoanRepository {
-  abstract submitLoan(formData: LoanModel): Observable<MockSuccessResponse>;
+  abstract submitLoan(formData: LoanEntity): Observable<MockSuccessResponse>;
 }
