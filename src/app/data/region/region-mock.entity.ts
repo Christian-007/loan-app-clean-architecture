@@ -7,19 +7,19 @@ export interface BaseResponse {
 }
 
 export interface ProvinceResult extends BaseResponse {
-  result: ProvinceMockEntity[];
+  result: ProvinceMockDto[];
 }
 
 export interface CityResult extends BaseResponse {
-  result: { [key: number]: CityMockEntity[] };
+  result: { [key: number]: CityMockDto[] };
 }
 
-export interface ProvinceMockEntity {
+export interface ProvinceMockDto {
   province_id: string;
   province: string;
 }
 
-export interface CityMockEntity {
+export interface CityMockDto {
   city_id: string;
   city: string;
 }

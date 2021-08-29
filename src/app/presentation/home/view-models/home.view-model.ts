@@ -9,7 +9,7 @@ import { HomeState } from '../stores/home.state';
 import { HomeStore } from '../stores/home.store';
 
 @Injectable()
-export class HomeVm {
+export class HomeViewModel {
   state$: Observable<HomeState>;
 
   constructor(

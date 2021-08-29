@@ -1,24 +1,24 @@
 export interface MockSuccessResponse {
   message: string;
-  result: LoanProfileMockEntity;
+  result: LoanProfileMockDto;
 }
 
-export interface LoanProfileMockEntity {
+export interface LoanProfileMockDto {
   id: string;
   reason: string;
   status: string;
 }
 
-export interface LoanMockEntity {
+export interface LoanMockDto {
   firstName: string;
   lastName: string;
   id: string;
   email: string;
   age: string;
-  contactAddress: AddressMockEntity;
+  contactAddress: AddressMockDto;
 }
 
-export interface AddressMockEntity {
+export interface AddressMockDto {
   street: string;
   province: string;
   city: string;

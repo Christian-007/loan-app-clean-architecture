@@ -5,16 +5,16 @@ import { delay } from 'rxjs/operators';
 import { LoanRepository } from 'src/app/core/repositories/loan.repository';
 import { LoanEntity } from 'src/app/core/entities/loan.entity';
 import { Mapper } from 'src/app/core/base/mapper';
-import { LoanMockEntity, MockSuccessResponse } from './loan-mock.dto';
+import { LoanMockDto, MockSuccessResponse } from './loan-mock.dto';
 import { LoanMockMapper } from './loan-mock.mapper';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoanRepositoryMock extends LoanRepository {
-  private loanMapper: Mapper<LoanMockEntity, LoanEntity>;
+  private loanMapper: Mapper<LoanMockDto, LoanEntity>;
   private mockResponse: MockSuccessResponse;
-  private allMockLoans: LoanMockEntity[];
+  private allMockLoans: LoanMockDto[];
 
   constructor() {
     super();

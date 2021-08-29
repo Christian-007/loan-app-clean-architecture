@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { RegionEntity } from 'src/app/core/entities/region.entity';
 
-import { HomeVm } from '../view-models/home.vm';
+import { HomeViewModel } from '../view-models/home.view-model';
 import { HomeState } from '../stores/home.state';
 
 @Component({
@@ -13,15 +13,15 @@ import { HomeState } from '../stores/home.state';
 export class HomeComponent implements OnInit {
   homeState: HomeState;
 
-  constructor(private homeVm: HomeVm) {}
+  constructor(private homeViewModel: HomeViewModel) {}
 
   ngOnInit(): void {
-    this.homeVm.state$.subscribe(state => {
+    this.homeViewModel.state$.subscribe((state: HomeState) => {
       this.homeState = state;
     });
 
-    this.homeVm.buildForm();
-    this.homeVm.fetchAllProvinces();
+    this.homeViewModel.buildForm();
+    this.homeViewModel.fetchAllProvinces();
   }
 
   onProvinceSelectChange(selectedProvince: RegionEntity): void {

@@ -14,7 +14,7 @@ import { LoanRepositoryMock } from 'src/app/data/loan/loan.repository-mock';
 
 import { HomeComponent } from '../containers/home.component';
 import { RegionFieldModule } from 'src/app/shared/components/region-field/region-field.module';
-import { HomeVm } from '../view-models/home.vm';
+import { HomeViewModel } from '../view-models/home.view-model';
 import { HomeStore } from '../stores/home.store';
 import { HomeRoutingModule } from './home-routing.module';
 
@@ -31,7 +31,7 @@ import { HomeRoutingModule } from './home-routing.module';
     RegionFieldModule,
   ],
   providers: [
-    HomeVm,
+    HomeViewModel,
     HomeStore,
     { provide: RegionRepository, useClass: RegionRepositoryMock },
     { provide: LoanRepository, useClass: LoanRepositoryMock },

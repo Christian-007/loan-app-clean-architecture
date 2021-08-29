@@ -1,9 +1,9 @@
 import { Mapper } from 'src/app/core/base/mapper';
 import { LoanEntity } from 'src/app/core/entities/loan.entity';
-import { LoanMockEntity } from './loan-mock.dto';
+import { LoanMockDto } from './loan-mock.dto';
 
-export class LoanMockMapper extends Mapper<LoanMockEntity, LoanEntity> {
-  mapFrom(param: LoanMockEntity): LoanEntity {
+export class LoanMockMapper extends Mapper<LoanMockDto, LoanEntity> {
+  mapFrom(param: LoanMockDto): LoanEntity {
     return {
       fullName: `${param.firstName} ${param.lastName}`,
       id: param.id,
@@ -15,7 +15,7 @@ export class LoanMockMapper extends Mapper<LoanMockEntity, LoanEntity> {
     };
   }
 
-  mapTo(param: LoanEntity): LoanMockEntity {
+  mapTo(param: LoanEntity): LoanMockDto {
     return {
       firstName: this.getFirstName(param.fullName),
       lastName: this.getLastName(param.fullName),

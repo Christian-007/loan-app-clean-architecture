@@ -6,10 +6,10 @@ import { Mapper } from 'src/app/core/base/mapper';
 import { RegionRepository } from 'src/app/core/repositories/region.repository';
 import { RegionEntity } from 'src/app/core/entities/region.entity';
 import {
-  ProvinceMockEntity,
+  ProvinceMockDto,
   ProvinceResult,
   CityResult,
-  CityMockEntity,
+  CityMockDto,
 } from './region-mock.entity';
 import { ProvinceMockMapper } from './province-mock.mapper';
 import { CityMockMapper } from './city-mock.mapper';
@@ -18,8 +18,8 @@ import { CityMockMapper } from './city-mock.mapper';
   providedIn: 'root',
 })
 export class RegionRepositoryMock extends RegionRepository {
-  private provinceMapper: Mapper<ProvinceMockEntity, RegionEntity>;
-  private cityMapper: Mapper<CityMockEntity, RegionEntity>;
+  private provinceMapper: Mapper<ProvinceMockDto, RegionEntity>;
+  private cityMapper: Mapper<CityMockDto, RegionEntity>;
   private allProvincesRes: ProvinceResult;
   private allCitiesByIdRes: CityResult;
   private mockLoadingTime: number;
@@ -67,7 +67,7 @@ export class RegionRepositoryMock extends RegionRepository {
   getProvinceById(id: string): Observable<RegionEntity> {
     return of(this.allProvincesRes).pipe(
       flatMap((res: ProvinceResult) => res.result),
-      find((province: ProvinceMockEntity) => province.province_id === id),
+      find((province: ProvinceMockDto) => province.province_id === id),
       map(this.provinceMapper.mapFrom),
       delay(this.mockLoadingTime),
     );
@@ -76,7 +76,7 @@ export class RegionRepositoryMock extends RegionRepository {
   getAllProvinces(): Observable<RegionEntity[]> {
     return of(this.allProvincesRes).pipe(
       map((res: ProvinceResult) => res.result),
-      map((provinces: ProvinceMockEntity[]) => {
+      map((provinces: ProvinceMockDto[]) => {
         return provinces.map(this.provinceMapper.mapFrom);
       }),
       delay(this.mockLoadingTime),
@@ -86,7 +86,7 @@ export class RegionRepositoryMock extends RegionRepository {
   getAllCitiesByProvinceId(id: string): Observable<RegionEntity[]> {
     return of(this.allCitiesByIdRes).pipe(
       map((res: CityResult) => res.result[id]),
-      map((cities: CityMockEntity[]) => {
+      map((cities: CityMockDto[]) => {
         return cities.map(this.cityMapper.mapFrom);
       }),
       delay(this.mockLoadingTime),
