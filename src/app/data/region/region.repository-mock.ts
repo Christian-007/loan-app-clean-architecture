@@ -2,17 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, flatMap, find, delay } from 'rxjs/operators';
 
+import { BaseRemoteResponse, NormalizedData } from '../base/response.model';
+import { ProvinceMockDto, CityMockDto } from './region-mock.entity';
+import { ProvinceMockMapper } from './province-mock.mapper';
+import { CityMockMapper } from './city-mock.mapper';
+
 import { Mapper } from 'src/app/core/base/mapper';
 import { RegionRepository } from 'src/app/core/repositories/region.repository';
 import { RegionEntity } from 'src/app/core/entities/region.entity';
-import {
-  ProvinceMockDto,
-  ProvinceResult,
-  CityResult,
-  CityMockDto,
-} from './region-mock.entity';
-import { ProvinceMockMapper } from './province-mock.mapper';
-import { CityMockMapper } from './city-mock.mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +17,8 @@ import { CityMockMapper } from './city-mock.mapper';
 export class RegionRepositoryMock extends RegionRepository {
   private provinceMapper: Mapper<ProvinceMockDto, RegionEntity>;
   private cityMapper: Mapper<CityMockDto, RegionEntity>;
-  private allProvincesRes: ProvinceResult;
-  private allCitiesByIdRes: CityResult;
+  private allProvincesRes: BaseRemoteResponse<ProvinceMockDto[]>;
+  private allCitiesByIdRes: BaseRemoteResponse<NormalizedData<CityMockDto[]>>;
   private mockLoadingTime: number;
 
   constructor() {
@@ -64,18 +61,18 @@ export class RegionRepositoryMock extends RegionRepository {
     };
   }
 
-  getProvinceById(id: string): Observable<RegionEntity> {
+  fetchOneProvinceById(id: string): Observable<RegionEntity> {
     return of(this.allProvincesRes).pipe(
-      flatMap((res: ProvinceResult) => res.result),
+      flatMap((res: BaseRemoteResponse<ProvinceMockDto[]>) => res.result),
       find((province: ProvinceMockDto) => province.province_id === id),
       map(this.provinceMapper.toEntity),
       delay(this.mockLoadingTime),
     );
   }
 
-  getAllProvinces(): Observable<RegionEntity[]> {
+  fetchAllProvinces(): Observable<RegionEntity[]> {
     return of(this.allProvincesRes).pipe(
-      map((res: ProvinceResult) => res.result),
+      map((res: BaseRemoteResponse<ProvinceMockDto[]>) => res.result),
       map((provinces: ProvinceMockDto[]) => {
         return provinces.map(this.provinceMapper.toEntity);
       }),
@@ -83,9 +80,12 @@ export class RegionRepositoryMock extends RegionRepository {
     );
   }
 
-  getAllCitiesByProvinceId(id: string): Observable<RegionEntity[]> {
+  fetchAllCitiesByProvinceId(id: string): Observable<RegionEntity[]> {
     return of(this.allCitiesByIdRes).pipe(
-      map((res: CityResult) => res.result[id]),
+      map(
+        (res: BaseRemoteResponse<NormalizedData<CityMockDto[]>>) =>
+          res.result[id],
+      ),
       map((cities: CityMockDto[]) => {
         return cities.map(this.cityMapper.toEntity);
       }),

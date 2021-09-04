@@ -1,8 +1,3 @@
-export interface MockSuccessResponse {
-  message: string;
-  result: LoanProfileMockDto;
-}
-
 export interface LoanProfileMockDto {
   id: string;
   reason: string;

@@ -26,7 +26,7 @@ export class HomeViewModel {
   fetchAllProvinces(): void {
     this.homeStore.fetchAllProvinces();
 
-    this.regionRepository.getAllProvinces().subscribe({
+    this.regionRepository.fetchAllProvinces().subscribe({
       next: (res: RegionEntity[]) => {
         this.homeStore.fetchAllProvincesSuccess(res);
       },
