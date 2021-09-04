@@ -5,5 +5,6 @@ export interface BaseRemoteResponse<T = void> {
 }
 
 export interface NormalizedData<T> {
-  [key: string | number]: T;
+  [key: string]: T;
+  [key: number]: T;
 }
