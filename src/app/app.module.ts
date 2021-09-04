@@ -5,7 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { routes } from './router';
 import { AppComponent } from './app.component';
-import { NavbarModule } from './shared/components/navbar/navbar.module';
+
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
 
 @NgModule({
   declarations: [AppComponent],

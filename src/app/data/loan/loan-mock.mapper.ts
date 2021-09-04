@@ -1,6 +1,7 @@
-import { Mapper } from 'src/app/core/base/mapper';
-import { LoanEntity } from 'src/app/core/entities/loan.entity';
 import { LoanMockDto } from './loan-mock.dto';
+
+import { Mapper } from '@core/base/mapper';
+import { LoanEntity } from '@core/entities/loan.entity';
 
 export class LoanMockMapper extends Mapper<LoanMockDto, LoanEntity> {
   toEntity(param: LoanMockDto): LoanEntity {

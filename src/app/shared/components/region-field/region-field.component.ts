@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 
-import { RegionEntity } from 'src/app/core/entities/region.entity';
+import { RegionEntity } from '@core/entities/region.entity';
 
 @Component({
   selector: 'app-region-field',

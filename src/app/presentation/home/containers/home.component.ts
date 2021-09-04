@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
-import { RegionEntity } from 'src/app/core/entities/region.entity';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { HomeViewModel } from '../view-models/home.view-model';
 import { HomeState } from '../stores/home.state';
+import { FormSnackbarComponent } from '../components/form-snackbar/form-snackbar.component';
+
+import { RegionEntity } from '@core/entities/region.entity';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,10 @@ import { HomeState } from '../stores/home.state';
 export class HomeComponent implements OnInit {
   homeState: HomeState;
 
-  constructor(private homeViewModel: HomeViewModel) {}
+  constructor(
+    private homeViewModel: HomeViewModel,
+    private snackBar: MatSnackBar,
+  ) {}
 
   ngOnInit(): void {
     this.homeViewModel.state$.subscribe((state: HomeState) => {
@@ -42,11 +47,19 @@ export class HomeComponent implements OnInit {
   // }
 
   onSubmit(): void {
+    this.openSnackbar();
     // const formData: LoanEntity = this.loanForm.value;
     // this.loading.submitForm = true;
     // this.submitLoan.execute(formData).subscribe((res: MockSuccessResponse) => {
     //   this.loading.submitForm = false;
     //   console.log('success: ', res);
     // });
+  }
+
+  private openSnackbar(): void {
+    const durationInMs = 4000;
+    this.snackBar.openFromComponent(FormSnackbarComponent, {
+      duration: durationInMs,
+    });
   }
 }

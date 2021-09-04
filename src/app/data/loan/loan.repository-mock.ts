@@ -6,9 +6,9 @@ import { BaseRemoteResponse } from '../base/response.model';
 import { LoanMockDto, LoanProfileMockDto } from './loan-mock.dto';
 import { LoanMockMapper } from './loan-mock.mapper';
 
-import { LoanRepository } from 'src/app/core/repositories/loan.repository';
-import { LoanEntity } from 'src/app/core/entities/loan.entity';
-import { Mapper } from 'src/app/core/base/mapper';
+import { Mapper } from '@core/base/mapper';
+import { LoanEntity } from '@core/entities/loan.entity';
+import { LoanRepository } from '@core/repositories/loan.repository';
 
 @Injectable({
   providedIn: 'root',

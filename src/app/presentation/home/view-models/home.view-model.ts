@@ -1,12 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RegionEntity } from 'src/app/core/entities/region.entity';
-
-import { RegionRepository } from 'src/app/core/repositories/region.repository';
 
 import { HomeState } from '../stores/home.state';
 import { HomeStore } from '../stores/home.store';
+
+import { RegionEntity } from '@core/entities/region.entity';
+import { RegionRepository } from '@core/repositories/region.repository';
 
 @Injectable()
 export class HomeViewModel {

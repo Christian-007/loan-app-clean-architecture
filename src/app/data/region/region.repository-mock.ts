@@ -7,9 +7,9 @@ import { ProvinceMockDto, CityMockDto } from './region-mock.entity';
 import { ProvinceMockMapper } from './province-mock.mapper';
 import { CityMockMapper } from './city-mock.mapper';
 
-import { Mapper } from 'src/app/core/base/mapper';
-import { RegionRepository } from 'src/app/core/repositories/region.repository';
-import { RegionEntity } from 'src/app/core/entities/region.entity';
+import { Mapper } from '@core/base/mapper';
+import { RegionEntity } from '@core/entities/region.entity';
+import { RegionRepository } from '@core/repositories/region.repository';
 
 @Injectable({
   providedIn: 'root',

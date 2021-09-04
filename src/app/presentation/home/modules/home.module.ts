@@ -6,17 +6,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-
-import { RegionRepository } from 'src/app/core/repositories/region.repository';
-import { RegionRepositoryMock } from 'src/app/data/region/region.repository-mock';
-import { LoanRepository } from 'src/app/core/repositories/loan.repository';
-import { LoanRepositoryMock } from 'src/app/data/loan/loan.repository-mock';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HomeComponent } from '../containers/home.component';
-import { RegionFieldModule } from 'src/app/shared/components/region-field/region-field.module';
 import { HomeViewModel } from '../view-models/home.view-model';
 import { HomeStore } from '../stores/home.store';
 import { HomeRoutingModule } from './home-routing.module';
+
+import { RegionRepository } from '@core/repositories/region.repository';
+import { LoanRepository } from '@core/repositories/loan.repository';
+import { RegionRepositoryMock } from '@data/region/region.repository-mock';
+import { LoanRepositoryMock } from '@data/loan/loan.repository-mock';
+import { RegionFieldModule } from '@shared/components/region-field/region-field.module';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -27,6 +28,7 @@ import { HomeRoutingModule } from './home-routing.module';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatSnackBarModule,
     HomeRoutingModule,
     RegionFieldModule,
   ],

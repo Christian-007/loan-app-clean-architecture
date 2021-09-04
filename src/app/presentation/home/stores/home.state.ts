@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { RegionEntity } from 'src/app/core/entities/region.entity';
+import { RegionEntity } from '@core/entities/region.entity';
 
 export class HomeState {
   loanForm: FormGroup = null;

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-
-import { Store } from 'src/app/core/base/store';
-import { RegionEntity } from 'src/app/core/entities/region.entity';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { HomeState } from './home.state';
+
+import { Store } from '@core/base/store';
+import { RegionEntity } from '@core/entities/region.entity';
 
 @Injectable()
 export class HomeStore extends Store<HomeState> {
@@ -13,10 +13,10 @@ export class HomeStore extends Store<HomeState> {
   }
 
   buildForm(): void {
-    const formGroup = this.fb.group({
-      fullName: [''],
+    const loanForm = this.fb.group({
+      fullName: ['', Validators.required],
       id: [''],
-      email: [''],
+      email: ['', Validators.required, Validators.email],
       age: [''],
       street: [''],
       province: [''],
@@ -25,7 +25,7 @@ export class HomeStore extends Store<HomeState> {
 
     this.setState({
       ...this.state,
-      loanForm: formGroup,
+      loanForm,
     });
   }
 
