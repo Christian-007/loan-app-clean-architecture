@@ -44,7 +44,7 @@ export class LoanRepositoryMock extends LoanRepository {
   }
 
   submitLoan(formData: LoanEntity): Observable<MockSuccessResponse> {
-    const mappedFormData = this.loanMapper.mapTo(formData);
+    const mappedFormData = this.loanMapper.toDto(formData);
     this.allMockLoans.push(mappedFormData);
 
     return of(this.mockResponse).pipe(delay(2000));

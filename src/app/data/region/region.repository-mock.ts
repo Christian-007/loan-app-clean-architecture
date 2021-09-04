@@ -68,7 +68,7 @@ export class RegionRepositoryMock extends RegionRepository {
     return of(this.allProvincesRes).pipe(
       flatMap((res: ProvinceResult) => res.result),
       find((province: ProvinceMockDto) => province.province_id === id),
-      map(this.provinceMapper.mapFrom),
+      map(this.provinceMapper.toEntity),
       delay(this.mockLoadingTime),
     );
   }
@@ -77,7 +77,7 @@ export class RegionRepositoryMock extends RegionRepository {
     return of(this.allProvincesRes).pipe(
       map((res: ProvinceResult) => res.result),
       map((provinces: ProvinceMockDto[]) => {
-        return provinces.map(this.provinceMapper.mapFrom);
+        return provinces.map(this.provinceMapper.toEntity);
       }),
       delay(this.mockLoadingTime),
     );
@@ -87,7 +87,7 @@ export class RegionRepositoryMock extends RegionRepository {
     return of(this.allCitiesByIdRes).pipe(
       map((res: CityResult) => res.result[id]),
       map((cities: CityMockDto[]) => {
-        return cities.map(this.cityMapper.mapFrom);
+        return cities.map(this.cityMapper.toEntity);
       }),
       delay(this.mockLoadingTime),
     );

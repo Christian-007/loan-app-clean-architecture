@@ -3,13 +3,13 @@ import { RegionEntity } from 'src/app/core/entities/region.entity';
 import { CityMockDto } from './region-mock.entity';
 
 export class CityMockMapper extends Mapper<CityMockDto, RegionEntity> {
-  mapFrom(param: CityMockDto): RegionEntity {
+  toEntity(param: CityMockDto): RegionEntity {
     return {
       id: param.city_id,
       name: param.city,
     };
   }
-  mapTo(param: RegionEntity): CityMockDto {
+  toDto(param: RegionEntity): CityMockDto {
     return {
       city_id: param.id,
       city: param.name,
